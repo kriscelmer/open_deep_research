@@ -166,7 +166,7 @@ def human_feedback(state: ReportState, config: RunnableConfig) -> Command[Litera
         return Command(goto=[
             Send("build_section_with_web_research", {"topic": topic, "section": s, "search_iterations": 0}) 
             for s in sections 
-            if s.research
+#            if s.research
         ])
     
     # If the user provides feedback, regenerate the report plan 
@@ -176,6 +176,7 @@ def human_feedback(state: ReportState, config: RunnableConfig) -> Command[Litera
                        update={"feedback_on_report_plan": feedback})
     else:
         raise TypeError(f"Interrupt value of type {type(feedback)} is not supported.")
+    raise ValueError("Feedback must be provided as a string or boolean.")
     
 def generate_queries(state: SectionState, config: RunnableConfig):
     """Generate search queries for researching a specific section.
